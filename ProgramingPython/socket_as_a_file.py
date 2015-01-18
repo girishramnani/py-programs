@@ -26,7 +26,7 @@ def redirectIn(port = port, host= host):
     return sock
 def redirectBothAsClient(port=port, host = host):
     sock = socket.connect((host,port))
-    inFile =sock.makefile()
+    g = sock.makefile()
     outfile = sock.makefile('w')
     return sock
 

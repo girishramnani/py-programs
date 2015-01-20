@@ -4,15 +4,17 @@ import urllib
 
 import bs4
 import shelve
+import os
 work = shelve.open("last")
 
-file = open("girish.html",'a')
 def _check_the_last():
-    t = work.get("first")
+    try:
+        t = 4677
+    except Exception as E:
+        t=1
     while True:
         resp = urllib.request.urlopen('http://it-ebooks.info/book/{}/'.format(t))
         html = resp.geturl()
-
         if r"/404/" in html:
             work['last']=t
             break
@@ -20,8 +22,8 @@ def _check_the_last():
 
 
 def start_scrapping():
-    _check_the_last()
-    first=work.get("first")
+    # _check_the_last()
+    first=4677
     last = work.get('last')
     print(first,last)
     try:
@@ -34,18 +36,32 @@ def start_scrapping():
             for link in soup.find_all('a'):
                 t =str(link.get("href"))
                 if "filepi" in t:
-                    final ='<a href="{}"> {} </a>'.format(t[2:-2],link.contents[0])
-                    print("{} done..".format(x))
-                    file.write(final)
-                    file.write("<pre> ISBN : {}</pre>".format(link2.contents[0]))
-                    file.write('<button style="display : inline;" onclick="location.href=\'http://it-ebooks.info/book/{}/\'" > book link </button>'.format(x))
-                    file.write("<hr>" )
+                    t2 = urllib.request.Request(t[2:-2],None,{"User-Agent":"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:26.0) Gecko/20100101 Firefox/26.0", "Referer":'http://it-ebooks.info/book/{}/'.format(x), "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"})
+                    file_name =link.contents[0]
+                    t2 = urllib.request.urlopen(t2)
+                    url =t2.geturl()
+                    count =0
+                    while count<10:
+                        print("starting .."+str(count))
+                        erro_code= os.system("http {} --download -o \"{}\" --continue".format(url,file_name+".pdf"))
+                        if erro_code ==0:
+                            break
+                        count+=1
+                    else:
+                        print("{} done..".format(x))
+                    if count>=3:
+                        raise ConnectionError
+
+
 
 
     except KeyboardInterrupt as e:
         print("done writing")
-        file.close()
-    work['first']=last
+
+        work['first']=x
+
+        work.sync()
+
 
 
 start_scrapping()

@@ -9,7 +9,7 @@ work = shelve.open("last")
 
 def _check_the_last():
     try:
-        t = 4677
+        t = work.get('first')
     except Exception as E:
         t=1
     while True:
@@ -22,8 +22,8 @@ def _check_the_last():
 
 
 def start_scrapping():
-    # _check_the_last()
-    first=4677
+    _check_the_last()
+    first=work.get('first')
     last = work.get('last')
     print(first,last)
     try:
@@ -55,7 +55,7 @@ def start_scrapping():
 
 
 
-    except KeyboardInterrupt as e:
+    except (KeyboardInterrupt,ConnectionError) as e:
         print("done writing")
 
         work['first']=x
@@ -63,5 +63,5 @@ def start_scrapping():
         work.sync()
 
 
-
+    work['first'] =work.get('last')
 start_scrapping()

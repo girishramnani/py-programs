@@ -86,9 +86,11 @@ def solve_game(board):
             print(a,end="")
         print()
     print()
-
+import time
+t = time.time()
 No_of_boards = int(input())
 for x in range(No_of_boards):
     input()
     board = [list(map(int,input())) for x in range(9)]
     solve_game(board)
+print(time.time()-t)

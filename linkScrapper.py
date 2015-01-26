@@ -1,3 +1,4 @@
+from urllib.error import URLError
 import urllib.request
 import urllib
 
@@ -23,7 +24,7 @@ def _check_the_last():
 
 def start_scrapping():
     _check_the_last()
-    first=work.get('first')
+    first=4706
     last = work.get('last')
     print(first,last)
     try:
@@ -49,13 +50,14 @@ def start_scrapping():
                         count+=1
                     else:
                         print("{} done..".format(x))
-                    if count>=3:
+                    if count>=10:
                         raise ConnectionError
 
 
+        work['first'] =work.get('last')
 
 
-    except (KeyboardInterrupt,ConnectionError) as e:
+    except (URLError,ConnectionError,KeyboardInterrupt) as e:
         print("done writing")
 
         work['first']=x
@@ -63,5 +65,4 @@ def start_scrapping():
         work.sync()
 
 
-    work['first'] =work.get('last')
 start_scrapping()

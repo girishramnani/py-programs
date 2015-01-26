@@ -38,7 +38,7 @@ li2=bisection(function2,12,16)
 
 plt.figure()
 plt.plot(li1)
-plt.plot(li2)
+
 
 plt.show()
 

@@ -22,8 +22,8 @@ class HelloWorld(QDialog):
         self.setLayout(layout)
         button.clicked.connect(self.close)
 
-        # more addition
 
+        # more addition
         line_edit.textChanged.connect(self.changeTextLabel)
 
     def changeTextLabel(self,text):

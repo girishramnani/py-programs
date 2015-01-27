@@ -23,7 +23,7 @@ class Py_downloader(QDialog):
 
         Url.setPlaceholderText("Enter the Url you wanna download")
         save_location.setPlaceholderText("Save file location")
-        
+
 
         layout.addWidget(Url)
         layout.addWidget(save_location)
@@ -33,7 +33,7 @@ class Py_downloader(QDialog):
         self.setLayout(layout)
 
         self.setWindowTitle("PyDownloader")
-
+        self.setFocus()
 
 
 

@@ -1,12 +1,12 @@
-from PyQt4.QtGui.QApplication import QApplication
-from PyQt4.QtGui.QDialog import QDialog
-from PyQt4.QtGui.QLineEdit import QLineEdit
-from PyQt4.QtGui.QProgressBar import QProgressBar
-from PyQt4.QtGui.QPushButton import QPushButton
-from PyQt4.QtGui.QVBoxLayout import QVBoxLayout
+from PyQt4.QtGui import QApplication
+from PyQt4.QtGui import QDialog
+from PyQt4.QtGui import QLineEdit
+from PyQt4.QtGui import QProgressBar
+from PyQt4.QtGui import QPushButton
+from PyQt4.QtGui import QVBoxLayout
 
 __author__ = 'Girish'
-
+import sys
 
 class Py_downloader(QDialog):
     def __init__(self):
@@ -26,12 +26,15 @@ class Py_downloader(QDialog):
         layout.addWidget(progress)
         layout.addWidget(button)
 
+        self.layout(layout)
 
 
 
 
 
-app = QApplication()
+
+
+app = QApplication(sys.argv)
 main_window = Py_downloader()
 main_window.show()
 app.exec_()

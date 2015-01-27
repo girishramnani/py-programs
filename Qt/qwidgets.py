@@ -9,18 +9,24 @@ class HelloWorld(QDialog):
     def __init__(self):
         super().__init__()
         layout = QVBoxLayout()
-        label = QLabel("hello world")
+        self.label = QLabel("hello world")
         line_edit = QLineEdit()
         button = QPushButton("close")
 
 
 
-        layout.addWidget(label)
+        layout.addWidget(self.label)
         layout.addWidget(line_edit)
         layout.addWidget(button)
         self.setLayout(layout)
         button.clicked.connect(self.close)
 
+        # more addition
+
+        line_edit.textChanged.connect(self.changeTextLabel)
+
+    def changeTextLabel(self,text):
+        self.label.setText(text)
 
 app  =QApplication(sys.argv)
 dialog = HelloWorld()

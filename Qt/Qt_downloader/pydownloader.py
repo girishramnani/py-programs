@@ -12,19 +12,21 @@ class Py_downloader(QDialog):
     def __init__(self):
         super().__init__()
 
-    layout = QVBoxLayout()
+        layout = QVBoxLayout()
 
 
 
-    Url = QLineEdit()
-    save_location  = QLineEdit()
-    progress = QProgressBar()
-    button  = QPushButton("Download")
+        Url = QLineEdit()
+        save_location  = QLineEdit()
+        progress = QProgressBar()
+        button  = QPushButton("Download")
 
-    layout.addWidget(Url)
-    layout.addWidget(save_location)
-    layout.addWidget(progress)
-    layout.addWidget(button)
+        layout.addWidget(Url)
+        layout.addWidget(save_location)
+        layout.addWidget(progress)
+        layout.addWidget(button)
+
+
 
 
 

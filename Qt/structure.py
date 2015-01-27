@@ -8,3 +8,6 @@ app = QApplication(sys.argv)
 dialog = QDialog()
 dialog.show()
 app.exec_()
+
+#some times app gets exits as
+# sys.exit(sys.exec_())

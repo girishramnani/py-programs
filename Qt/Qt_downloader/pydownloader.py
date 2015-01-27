@@ -1,5 +1,5 @@
 from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QApplication
+from PyQt4.QtGui import QApplication, QMessageBox
 from PyQt4.QtGui import QDialog
 from PyQt4.QtGui import QLineEdit
 from PyQt4.QtGui import QProgressBar
@@ -17,12 +17,10 @@ class Py_downloader(QDialog):
 
         layout = QVBoxLayout()
 
-
-
         self.Url = QLineEdit()
-        self.save_location  = QLineEdit()
+        self.save_location = QLineEdit()
         self.progress = QProgressBar()
-        button  = QPushButton("Download")
+        button = QPushButton("Download")
 
         self.Url.setPlaceholderText("Enter the Url you wanna download")
         self.save_location.setPlaceholderText("Save file location")
@@ -43,15 +41,31 @@ class Py_downloader(QDialog):
     def download(self):
         url = self.Url.text()
         save_location = self.save_location.text()
-        urllib.request.urlretrieve(url,save_location,self.report)
-
-    def report(self,blocknum,blocksize,totalsize):
-        readsofar = blocknum*blocksize
-        if totalsize >0:
-            percent = readsofar *100 / totalsize
-            self.progress.setValue(int(percent))
         
-            
+        try:
+            urllib.request.urlretrieve(url, save_location, self.report)
+        except Exception:
+            QMessageBox.warning(self,"Warning","The downlaod failed")
+            self.reset()
+            return
+
+        QMessageBox.information(self, "Information", "The download is complete")
+        self.reset()
+
+    def reset(self):
+        self.progress.setValue(0)
+        self.Url.setText("")
+        self.save_location.setText("")
+
+
+    def report(self, blocknum, blocksize, totalsize):
+        print(blocksize)
+        readsofar = blocknum * blocksize
+        if totalsize > 0:
+            percent = (readsofar * 100) / totalsize
+            t = int(percent)
+
+            self.progress.setValue(t)
 
 
 app = QApplication(sys.argv)

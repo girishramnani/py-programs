@@ -50,6 +50,7 @@ class Py_downloader(QDialog):
         if totalsize >0:
             percent = readsofar *100 / totalsize
             self.progress.setValue(int(percent))
+        
             
 
 

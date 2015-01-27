@@ -12,10 +12,14 @@ class HelloWorld(QDialog):
         label = QLabel("hello world")
         line_edit = QLineEdit()
         button = QPushButton("close")
+
+
+
         layout.addWidget(label)
         layout.addWidget(line_edit)
         layout.addWidget(button)
         self.setLayout(layout)
+        button.clicked.connect(self.close)
 
 
 app  =QApplication(sys.argv)

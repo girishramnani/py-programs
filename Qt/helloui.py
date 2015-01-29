@@ -53,7 +53,6 @@ class Ui_Dialog(object):
         self.pushButton = QtGui.QPushButton(Dialog)
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
         self.gridLayout.addWidget(self.pushButton, 3, 0, 1, 2)
-
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 

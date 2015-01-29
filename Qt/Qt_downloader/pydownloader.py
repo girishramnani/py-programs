@@ -36,6 +36,8 @@ class Py_downloader(QDialog):
         layout.addWidget(browse)
         layout.addWidget(button)
 
+
+
         self.setLayout(layout)
 
         self.setWindowTitle("PyDownloader")
@@ -69,12 +71,12 @@ class Py_downloader(QDialog):
 
 
     def report(self, blocknum, blocksize, totalsize):
-        print(blocksize)
+
         readsofar = blocknum * blocksize
         if totalsize > 0:
             percent = (readsofar * 100) / totalsize
             t = int(percent)
-
+            print(t)
             self.progress.setValue(t)
 
 

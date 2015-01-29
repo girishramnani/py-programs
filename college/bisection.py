@@ -34,11 +34,16 @@ def function2(x):
 
 
 li1= regula_falsi(function2,12,16)
+li1 = [abs(li1[-1]-x) for x in li1 ]
 li2=bisection(function2,12,16)
-
+li2 = [abs(li2[-1] -x) for x in li2]
+li3=[0.563838,0.612700,0.567170, 0.567143]
+error_li3 = [ abs(0.567143-x) for x in li3]
+print(error_li3)
 plt.figure()
 plt.plot(li1)
-
+plt.plot(li2)
+plt.plot(error_li3)
 
 plt.show()
 

@@ -23,8 +23,8 @@ def _check_the_last():
 
 
 def start_scrapping():
-    _check_the_last()
-    first=4706
+    
+    first=4716
     last = work.get('last')
     print(first,last)
     try:
@@ -51,7 +51,7 @@ def start_scrapping():
                     else:
                         print("{} done..".format(x))
                     if count>=10:
-                        raise ConnectionError
+                        pass
 
 
         work['first'] =work.get('last')

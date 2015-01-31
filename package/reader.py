@@ -1,4 +1,8 @@
 __author__ = 'Girish'
+
+from package.compressed import gzipper
+
+
 class reader:
     def __init__(self,filename):
         self.filename = filename

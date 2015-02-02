@@ -16,7 +16,6 @@ class working(QDialog,Ui_Dialog):
         self.t = QTimer()
         self.t.timeout.connect(self.functioning)
         self.t.start(1000)
-
     def functioning(self):
         t = time.localtime()
         h = time.strftime("%H",t)

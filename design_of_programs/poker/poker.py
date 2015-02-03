@@ -1,8 +1,12 @@
 __author__ = 'Girish'
 
 def rank(hands):
-    return max(hands,key=_ranks)
+    if hands==None:
+        raise TypeError
+    if len(hands) ==1:
+        return hands[0]
+    return max(hands,key=_hand_rank)
 
-def _ranks(hand):
+def _hand_rank(hand):
     pass
 

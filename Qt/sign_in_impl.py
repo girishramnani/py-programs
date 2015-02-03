@@ -1,8 +1,7 @@
 from PyQt4.QtGui import QDialog, QApplication, QPixmap
-from PyQt4.QtGui.QSplashScreen import QSplashScreen
+from PyQt4.QtGui import QSplashScreen
 
 __author__ = 'Girish'
-
 
 
 from Qt import signin

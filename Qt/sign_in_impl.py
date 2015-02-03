@@ -1,4 +1,5 @@
-from PyQt4.QtGui import QDialog, QApplication
+from PyQt4.QtGui import QDialog, QApplication, QPixmap
+from PyQt4.QtGui.QSplashScreen import QSplashScreen
 
 __author__ = 'Girish'
 
@@ -14,4 +15,8 @@ import sys
 app = QApplication(sys.argv)
 dialog = View()
 dialog.show()
+'''for splash'''
+# splash_image = QPixmap()
+# splash =QSplashScreen(splash_image)
+# splash.finish(dialog)
 app.exec_()

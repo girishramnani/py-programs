@@ -7,4 +7,3 @@ def get_ints():
         yield -i
         i+=1
 
-        

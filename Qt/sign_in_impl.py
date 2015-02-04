@@ -26,6 +26,7 @@ class View(QDialog,signin.Ui_Dialog):
         systry_icon.show()
         systry_icon.showMessage("heyo","Hello",QSystemTrayIcon.Warning)
         close.triggered.connect(self.close)
+
     def showContextMenu(self,position):
         menu =QMenu(self)
         reset = QAction("reset",self)

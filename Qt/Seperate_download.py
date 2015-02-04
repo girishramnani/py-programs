@@ -8,9 +8,8 @@ from bs4 import BeautifulSoup as Soup
 
 import os
 import sys
-
-icon = QIcon("jBli3.png")
-tray = QSystemTrayIcon(icon)
+from Qt.system_tray_impl import Message_display
+message= Message_display()
 
 def fetch_youtube_urls(category_url):
     # Scrape the pyvideo site to get titles and descriptions of
@@ -49,7 +48,8 @@ if __name__ == '__main__':
         
         
         if len(sys.argv) ==1:
-            foldername = pick['folder']
+            foldername = pick.get("folder",None)
+            assert foldername != None
             link = pick['link']
             print(foldername)
         else:        
@@ -64,6 +64,7 @@ if __name__ == '__main__':
         for url in fetch_youtube_urls(pyvid_url):
             if not (url in pick['down']):
                 notify('Downloading %s' % url)
+                message.show_message(url)
                 exit_code= download_video(url,foldername)
                 print(exit_code)
                 if int(exit_code)==0:
@@ -84,3 +85,4 @@ if __name__ == '__main__':
         pick.sync()
         print("Exiting")
         sys.exit()
+    message.exec_()

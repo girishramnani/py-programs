@@ -1,4 +1,4 @@
-from PyQt4.QtGui import QDialog, QHBoxLayout, QSpinBox, QDial, QApplication
+from PyQt4.QtGui import QDialog, QHBoxLayout, QSpinBox, QDial, QApplication, QPushButton
 
 __author__ = 'Girish'
 
@@ -18,6 +18,15 @@ class Form(QDialog):
         self.dial.valueChanged.connect(self.spin.setValue)
         self.spin.valueChanged.connect(self.dial.setValue)
         self.setWindowTitle("signals")
+
+    """one of the ways to get data from the signal"""
+    # def clicked(self):
+    #     button = self.sender()
+    #     if button is None or not isinstance(button, QPushButton):
+    #          return
+    #     self.label.setText("You clicked button '%s'" % button.text())
+
+
 import sys
 app =QApplication(sys.argv)
 fp = Form()

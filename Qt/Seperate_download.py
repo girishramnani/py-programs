@@ -1,6 +1,6 @@
 '''requirements requests , bs4'''
 import shelve
-from PyQt4.QtGui import QIcon, QSystemTrayIcon
+from PyQt4.QtGui import QApplication,QIcon, QSystemTrayIcon
 
 __author__ = 'girish'
 import requests
@@ -8,14 +8,32 @@ from bs4 import BeautifulSoup as Soup
 
 import os
 import sys
-from Qt.system_tray_impl import Message_display
-message= Message_display()
 
+
+class Message_display:
+    def __init__(self):
+        self.t = QApplication(sys.argv)
+        icon = QIcon("jBli3.png")
+        self.tray = QSystemTrayIcon(icon)
+
+        self.tray.show()
+        self.tray.showMessage("Downloading", "sdf")
+
+    def show_message(self, download):
+        def show():
+            self.tray.showMessage("Downloading", download)
+
+        return show
+
+    def exec_(self):
+        self.t.exec_()
+
+message =Message_display()
 def fetch_youtube_urls(category_url):
     # Scrape the pyvideo site to get titles and descriptions of
     # each video so you can choose which you want to download.
-    url=[]
-    j =0
+    url = []
+    j = 0
     soup = Soup(requests.get(category_url).content)
 
     for div in soup.find_all('a', attrs={'class': 'thumbnail'}):
@@ -23,65 +41,63 @@ def fetch_youtube_urls(category_url):
         video_url = 'http://pyvideo.org{}'.format(video_path)
         video_soup = Soup(requests.get(video_url).content)
         print("parsing the link .. \n {}".format(video_path))
-        yield video_soup.find('div',attrs={'class':'amara-embed'})['data-url']
+        yield video_soup.find('div', attrs={'class': 'amara-embed'})['data-url']
 
 
 def download_video(url, foldername):
     # Use youtube-dl to handle the download
-    return os.system('youtube-dl -o ".\\{}\\%(title)s.%(ext)s" "{}"'.format(foldername ,url))
+    return os.system('youtube-dl -o ".\\{}\\%(title)s.%(ext)s" "{}"'.format(foldername, url))
 
 
 def notify(msg):
-
     line = '-' * len(msg)
-    print ("\n%s\n%s\n%s\n\n" % (line, msg, line))
+    print("\n%s\n%s\n%s\n\n" % (line, msg, line))
+
 
 if __name__ == '__main__':
-	
+
     try:
         pick = shelve.open("downloaded2")
         if not pick:
-            pick["down"]=set([])
+            pick["down"] = set([])
 
+        t = pick['down']
 
-        t= pick['down']
-        
-        
-        if len(sys.argv) ==1:
-            foldername = pick.get("folder",None)
+        if len(sys.argv) == 1:
+            foldername = pick.get("folder", None)
             assert foldername != None
             link = pick['link']
             print(foldername)
-        else:        
-            foldername =sys.argv[1].split("/")[-1]
+        else:
+            foldername = sys.argv[1].split("/")[-1]
             link = sys.argv[1]
         if not os.path.exists(foldername):
             os.mkdir(foldername)
         '''change the link to download appropriate event videos'''
-        pyvid_url = 'http://pyvideo.org/'+link
+        pyvid_url = 'http://pyvideo.org/' + link
 
         notify('Fetching video URLs from %s' % pyvid_url)
         for url in fetch_youtube_urls(pyvid_url):
             if not (url in pick['down']):
                 notify('Downloading %s' % url)
                 message.show_message(url)
-                exit_code= download_video(url,foldername)
+                exit_code = download_video(url, foldername)
                 print(exit_code)
-                if int(exit_code)==0:
+                if int(exit_code) == 0:
                     t.add(url)
-                    pick['down']=t
+                    pick['down'] = t
                     pick.sync()
                 else:
                     print("Error..")
-                    
+
             else:
                 print("skipping {}".format(url))
-        pick['down']=set([])
+        pick['down'] = set([])
 
         notify('Video fetching complete')
     except KeyboardInterrupt:
         pick['folder'] = foldername
-        pick['link']= link
+        pick['link'] = link
         pick.sync()
         print("Exiting")
         sys.exit()

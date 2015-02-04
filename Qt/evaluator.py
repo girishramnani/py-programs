@@ -28,7 +28,6 @@ class evaluator(QDialog):
         p =port(self.text_browser)
         sys.stdout = p
         t = eval(text)
-
         self.text_browser.append("<b> {} </b>".format(t if t!=None else ""))
 
         self.line_edit.setText("")

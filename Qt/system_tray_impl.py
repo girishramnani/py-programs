@@ -15,9 +15,9 @@ class Message_display:
         icon = QIcon("jBli3.png")
         self.tray = QSystemTrayIcon(icon)
         self.tray.show()
+        t.exec_()
     def show_message(self,download):
-        self.tray.showMessage("Downloading","ramnani")
+        self.tray.showMessage("Downloading",download)
 
+x =Message_display()
 
-
-t.exec_()

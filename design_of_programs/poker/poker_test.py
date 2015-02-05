@@ -17,6 +17,9 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(poker.rank([self.sf,self.fh]),self.sf)
     def test_4(self):
         self.assertEqual(poker.rank([self.sf]),self.sf)
+    def test_5(self):
+        self.assertEqual(poker._hand_rank(self.sf),(8,5))
+
 
 
 

@@ -111,9 +111,7 @@ def solve_game(board):
     :return:
     """
     import time
-
     t = time.time()
-
     no_available = flatten_count(board, 0)
     _solve(board, no_available, 0)
     for z in board:

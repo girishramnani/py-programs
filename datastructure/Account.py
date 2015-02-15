@@ -1,5 +1,5 @@
 __author__ = 'Girish'
-
+from datastructure import t
 class Account:
     def __init__(self,name,account,pin,balance=0.0):
         self.name = name
@@ -11,8 +11,8 @@ class Account:
             return self.name < other.name
 
 
-t = Account("griihs","savig",3434)
-t2 = Account("agriihs","savig",3434)
+
+print(t)
 
 
 

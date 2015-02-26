@@ -1,12 +1,12 @@
 from PyQt4.QtGui import QDialog, QTextBrowser, QVBoxLayout, QLineEdit, QApplication
-
+from itertools import  permutations as pr
 __author__ = 'Girish'
 class port:
         def __init__(self,view):
             self.view = view
-
         def write(self,*args):
-            self.view.append(*args)
+            print(args)
+            self.view.append(args[0])
 class evaluator(QDialog):
     def __init__(self):
         QDialog.__init__(self)
@@ -29,7 +29,6 @@ class evaluator(QDialog):
         sys.stdout = p
         t = eval(text)
         self.text_browser.append("<b> {} </b>".format(t if t!=None else ""))
-
         self.line_edit.setText("")
 import sys
 app = QApplication(sys.argv)

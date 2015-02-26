@@ -5,6 +5,9 @@ board =[[None for x in range(3)] for x in range(3)]
 board[0][0] ="O"
 board[0][1] ="O"
 board[0][2] ="O"
+
+
+
 def check(board):
     def draw(board):
         for x in board:

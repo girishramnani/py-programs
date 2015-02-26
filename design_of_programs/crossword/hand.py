@@ -49,15 +49,23 @@ def find_words(letters,words=None):
 def premutation(letters):
     result=set()
     t = len(letters)
+
     def worker(w,letters):
+
         if len(w)==t:
+
             result.add(w)
+
         for L in range(len(letters)):
+
             le = letters[L]
             worker(w+le,letters[:L]+letters[L+1:])
+
+
     worker("",letters)
     return result
 
+print(premutation("ABCD"))
 WORD,PREFIX = readwordlist("words.txt")
 LETTER_POINTS =dict(A=1,B=3,C=3,D=2,E=1,F=4,G=2,H=4,I=1,J=8
                     ,K=5,L=1,M=3,N=1,O=1,P=3,Q=10,R=1,S=1,T=1,U=1,V=4,

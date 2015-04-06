@@ -62,6 +62,7 @@ def moves(board, row, column):
 
 def display(board):
     for x in board:
+
         print(x)
 
 

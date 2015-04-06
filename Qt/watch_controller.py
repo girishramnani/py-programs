@@ -24,6 +24,7 @@ class working(QDialog,Ui_Dialog):
         self.hour.setProperty("value",h)
         self.second.setProperty("value",s)
         self.minute.setProperty("value",m)
+        self
 
 
 

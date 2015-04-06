@@ -23,8 +23,7 @@ def _check_the_last():
 
 
 def start_scrapping():
-    _check_the_last()
-    first=4720
+    first=work.get('first')
     last = work.get('last')
     print(first,last)
     try:

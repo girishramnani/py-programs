@@ -1,14 +1,78 @@
+from pprint import pprint
+
 __author__ = 'Girish'
 
+import sys
 
+sys.setrecursionlimit(100000)
 board =[[None for x in range(3)] for x in range(3)]
-board[0][0] ="O"
-board[0][1] ="O"
-board[0][2] ="O"
 
 
 
-def check(board):
+class Node:
+    WIN =1
+    LOSE =3
+    DRAW =2
+    def __init__(self,move=None):
+        self.move=move
+        self.condition =None
+        self.childrens=None
+
+
+def possible_moves(board):
+    moves = []
+    for i,x in enumerate(board):
+        for j, y in enumerate(x):
+            if(y ==None):
+                moves.append((i,j))
+    return moves
+
+
+def make_move(move,bol):
+    board[move[0]][move[1]] = 'X' if bol else 'O'
+
+
+count=0
+
+def undo_move(move,bol):
+    board[move[0]][move[1]] = None
+
+
+def generate_tree(tree,bol):
+    result,winner =check()
+    if result:
+        return winner
+    for i,move in enumerate(possible_moves(board)):
+        make_move(move,bol)
+        winner = generate_tree(tree,not bol)
+
+        display(board)
+        print()
+        if winner:
+
+            undo_move(move,bol)
+            return winner
+    return None
+
+
+def cp(array):
+    a2 =array.copy()
+    a2[0][0]=5
+ar=[[1,2,3],[7,8,9],[45,89]]
+cp(ar)
+print(ar)
+
+
+
+
+
+
+def check():
+
+    """
+    :param board: [[]]
+    :return: tuple (Game end boolean , player won)
+    """
     def draw(board):
         for x in board:
             for y in x:
@@ -28,21 +92,13 @@ def check(board):
         return True ,board[0][2]
     return False,None
 play = True
+
+
 def display(board):
     for x  in board:
         for i in x:
             print(i,end=" ")
         print()
-
-
-while not check(board)[0]:
-
-    choice =input("Enter Player 1 :" if play else "Enter Player 2 :")
-    choice = list(map(int,choice.split(" ")))
-    board[choice[0]][choice[1]] = "O" if play else "X"
-    display(board)
-    play = not play
-
 
 
 

@@ -39,5 +39,33 @@ class Github_wrap:
                 index.remove([change])
         index.commit("synced at {}".format(message()))
 
+    def incremental_commit(self):
+        """
+
+        :param message: a function which returns a string of the message to display
+        :return:
+        """
+        print("inside commit")
+        index = self.repo.index
+        print(self.repo.untracked_files)
+        changes =[diff.a_blob.path for diff in index.diff(None)]
+        print(changes)
+
+        for w in self.repo.untracked_files:
+            index.add([w])
+            index.commit("added a file {}".format(w))
+        for change in changes:
+            try:
+                index.add([change])
+                index.commit("changed file {}".format(change))
+                print("added file {}".format(change))
+
+            except FileNotFoundError:
+                index.remove([change])
+                index.commit("removed file  {}".format(change))
+                print("removed file {}".format(change))
+        self.push()
+
+
     def push(self):
         self.repo.git.push()

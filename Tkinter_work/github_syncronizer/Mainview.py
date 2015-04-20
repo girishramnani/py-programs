@@ -1,3 +1,4 @@
+from threading import Thread
 from time import ctime
 from tkinter.ttk import Combobox
 
@@ -22,7 +23,7 @@ class UI:
         self.label = Label(self.master, text="Directory: ")
         self.entry = Entry(self.master, state='disabled', width=30)
         self.button = Button(self.master, text="Select Directory", command=self.ask)
-        self.button2 = Button(self.master, text="startSync", command=self.start_syncronysing)
+        self.button2 = Button(self.master, text="startSync", command=self.work(self.start_syncronysing))
         self.button2.config(state="disabled")
         self.minlabel = Label(self.master, text="Every ..")
         self.min2label = Label(self.master, text=" minutes")
@@ -53,11 +54,18 @@ class UI:
 
     def start_syncronysing(self):
         self.github.commit(ctime)
+        print("sync at "+ctime())
         self.github.push()
-        self.master.after(int(self.combobox.get())*60,self.start_syncronysing)
+        self.master.after(int(self.combobox.get())*60*1000,self.start_syncronysing)
 
-    def thread_wrapper(self):
-        
+    def work(self,f):
+        def thread_wrapper():
+            print("New thread spawned")
+            thread = Thread(target=f)
+            thread.setDaemon(True)
+            thread.start()
+        return thread_wrapper
+
 
 
 if __name__ == "__main__":

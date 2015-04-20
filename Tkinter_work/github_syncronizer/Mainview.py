@@ -1,3 +1,4 @@
+from time import ctime
 from tkinter.ttk import Combobox
 
 __author__ = 'Girish'
@@ -7,14 +8,12 @@ from tkinter.filedialog import askopenfilename, askdirectory
 import os
 from tkinter import *
 import tkinter.ttk as ttk
-
-# from . import Github_api
+from Tkinter_work.github_syncronizer import Github_api
 
 
 class UI:
     def __init__(self, master):
-        # self.github = Github_api.Github()
-
+        self.github = Github_api.Github_wrap(master)
         self.master = master
         self.init_UI()
 
@@ -47,22 +46,18 @@ class UI:
             self.entry.delete(0)
             self.entry.insert(0, self.directory)
             self.entry.config(state="disabled")
-            # self.github.setrepository(self.directory)
+            self.github.set_repo(self.directory)
         else:
             showwarning("You didnt select any directory?")
 
 
     def start_syncronysing(self):
-        pass
-        # import time
-        #     self.github.add_all()
-        #     self.github.commit("sync at "+time.time())
-        #     if self.remote:
-        #         try:
-        #             self.github.push()
-        #             self.master.after(self.start_syncronysing,self.combobox.get()*60)
-        #         except NoRemoteException:
-        #             showinfo()
+        self.github.commit(ctime)
+        self.github.push()
+        self.master.after(int(self.combobox.get())*60,self.start_syncronysing)
+
+    def thread_wrapper(self):
+        
 
 
 if __name__ == "__main__":

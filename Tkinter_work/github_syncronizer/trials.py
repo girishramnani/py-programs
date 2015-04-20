@@ -5,22 +5,17 @@ __author__ = 'Girish'
 
 from git import Repo
 import glob
-t = Repo("C:\\Users\\Girish\\Documents\\GitHub\\c_and_c++ Programs")
+t = Repo("C:\\Users\\Girish\\PycharmProjects\\compititive_coding")
 index = t.index
 import os
 
 import glob
 
 import pytz
+print(t.untracked_files)
 
 li=[diff.a_blob.path for diff in index.diff(None)]
-for x in li:
-    try:
-        index.add([x])
-    except FileNotFoundError:
-        print(x)
-        index.remove([x])
+print(li)
 
 
 
-index.commit("synced at {}".format(strftime("%c")))

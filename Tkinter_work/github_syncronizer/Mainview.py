@@ -9,7 +9,7 @@ from tkinter.filedialog import askopenfilename, askdirectory
 import os
 from tkinter import *
 import tkinter.ttk as ttk
-from Tkinter_work.github_syncronizer import Github_api
+import Github_api
 
 
 class UI:

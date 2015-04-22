@@ -9,7 +9,7 @@ class Github_wrap:
     def __init__(self, master, repo=None):
         if repo:
             self.repo = repo
-
+        
         self.master = master
 
     def set_repo(self, repo):
@@ -68,4 +68,8 @@ class Github_wrap:
 
 
     def push(self):
-        self.repo.git.push()
+        try:
+            self.repo.git.push()
+        except:
+            print("Offline mode")
+            self.offline =True

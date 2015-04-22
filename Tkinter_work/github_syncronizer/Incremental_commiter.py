@@ -6,7 +6,7 @@ from tkinter.ttk import Label, Entry, Button, Combobox
 
 __author__ = 'Girish'
 
-from Tkinter_work.github_syncronizer import Mainview
+import Mainview
 class Ui2(Mainview.UI):
 
     def __init__(self,master):

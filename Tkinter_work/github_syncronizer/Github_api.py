@@ -14,12 +14,10 @@ def async(func):
         th.start()
     return work
 
-
 class Github_wrap:
     def __init__(self, master, repo=None):
         if repo:
             self.repo = repo
-        
         self.master = master
 
     def set_repo(self, repo):

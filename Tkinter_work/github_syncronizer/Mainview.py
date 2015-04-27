@@ -53,8 +53,7 @@ class UI:
             showwarning("You didnt select any directory?")
 
 
-    def start_syncronysing(self):
-        terminal =self.terminalHandler.new_window(self.directory)
+    def start_syncronysing(self,terminal):
         self.github.incremental_commit(terminal)
         terminal.print("sync at "+ctime())
         self.github.push()
@@ -63,7 +62,8 @@ class UI:
     def work(self,f):
         def thread_wrapper():
             print("New thread spawned")
-            thread = Thread(target=f)
+            terminal =self.terminalHandler.new_window(self.directory)
+            thread = Thread(target=f,args=(terminal,))
             thread.setDaemon(True)
             thread.start()
         return thread_wrapper

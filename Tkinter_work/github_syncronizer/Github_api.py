@@ -6,7 +6,13 @@ from git.repo.base import Repo
 
 __author__ = 'Girish'
 
-
+def async(func):
+    def work(arg):
+        print("async push")
+        th =Thread(arg.func)
+        th.setDaemon(True)
+        th.start()
+    return work
 
 
 class Github_wrap:
@@ -27,13 +33,7 @@ class Github_wrap:
             showwarning("warning","There is no repo here !! Will create one for you")
             self.repo = Repo.init(repo)
 
-    def async(func):
-        def work(arg):
-            print("async push")
-            th =Thread(arg.func)
-            th.setDaemon(True)
-            th.start()
-        return work
+
     def commit(self, message):
         """
 

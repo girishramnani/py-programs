@@ -57,7 +57,7 @@ class UI:
         self.github.incremental_commit(terminal)
         terminal.print("sync at "+ctime())
         self.github.push()
-        self.master.after(int(self.combobox.get())*60*1000,self.start_syncronysing)
+        self.master.after(int(self.combobox.get())*60*1000,lambda :self.start_syncronysing(terminal))
 
     def work(self,f):
         def thread_wrapper():

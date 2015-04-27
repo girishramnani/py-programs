@@ -54,8 +54,8 @@ class UI:
 
 
     def start_syncronysing(self,terminal):
-        self.github.incremental_commit(terminal)
         terminal.print("sync at "+ctime())
+        self.github.incremental_commit(terminal)
         self.github.push()
         self.master.after(int(self.combobox.get())*60*1000,lambda :self.start_syncronysing(terminal))
 

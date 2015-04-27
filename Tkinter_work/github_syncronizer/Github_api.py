@@ -8,9 +8,9 @@ __author__ = 'Girish'
 
 def async(func):
 
-    def work(*args):
+    def work():
         print("async push")
-        th =Thread(func,args=args)
+        th =Thread(func)
         th.setDaemon(True)
         th.start()
     return work

@@ -20,7 +20,7 @@ class Github_wrap:
             self.repo = Repo(repo)
             print(self.repo.remotes)
         except InvalidGitRepositoryError:
-            showwarning("There is no repo here !! Will create one for you")
+            showwarning("warning","There is no repo here !! Will create one for you")
             self.repo = Repo.init(repo)
 
 
@@ -32,14 +32,17 @@ class Github_wrap:
         """
         index = self.repo.index
         changes =[diff.a_blob.path for diff in index.diff(None)]
+        
         for change in changes:
             try:
                 index.add([change])
             except FileNotFoundError:
                 index.remove([change])
+            except PermissionError:
+                continue
         index.commit("synced at {}".format(message()))
 
-    def incremental_commit(self):
+    def incremental_commit(self,terminal=None):
         """
 
         :param message: a function which returns a string of the message to display
@@ -49,21 +52,36 @@ class Github_wrap:
         index = self.repo.index
         print(self.repo.untracked_files)
         changes =[diff.a_blob.path for diff in index.diff(None)]
+
+
         print(changes)
 
         for w in self.repo.untracked_files:
-            index.add([w])
-            index.commit("added a file {}".format(w))
+            try:
+                index.add([w])
+                if terminal:
+                    terminal.print("added a file {}".format(w))
+                index.commit("\tadded a file {}".format(w))
+            except PermissionError:
+                if terminal:
+                    terminal.print("\tpermission denied for the file "+w)
+                print("permission denied for the file "+w)
         for change in changes:
             try:
                 index.add([change])
                 index.commit("changed file {}".format(change))
+                if terminal:
+                    terminal.print("\tadded file {}".format(change))
                 print("added file {}".format(change))
 
             except FileNotFoundError:
                 index.remove([change])
                 index.commit("removed file  {}".format(change))
+                if terminal:
+                    terminal.print("\tremoved file {}".format(change))
                 print("removed file {}".format(change))
+            except PermissionError:
+                print("No permission")
         self.push()
 
 

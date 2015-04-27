@@ -9,7 +9,7 @@ __author__ = 'Girish'
 def async(func):
     def work(arg):
         print("async push")
-        th =Thread(arg.func)
+        th =Thread(target=lambda :func(arg))
         th.setDaemon(True)
         th.start()
     return work

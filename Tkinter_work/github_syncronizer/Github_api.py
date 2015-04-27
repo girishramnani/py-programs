@@ -1,9 +1,20 @@
+from threading import Thread
 from tkinter.messagebox import showwarning
 from django.utils.datetime_safe import strftime
 from git.exc import InvalidGitRepositoryError
 from git.repo.base import Repo
 
 __author__ = 'Girish'
+
+def async(func):
+
+    def work(*args):
+        print("async push")
+        th =Thread(func,args=args)
+        th.setDaemon(True)
+        th.start()
+    return work
+
 
 class Github_wrap:
     def __init__(self, master, repo=None):
@@ -48,14 +59,8 @@ class Github_wrap:
         :param message: a function which returns a string of the message to display
         :return:
         """
-        print("inside commit")
         index = self.repo.index
-        print(self.repo.untracked_files)
         changes =[diff.a_blob.path for diff in index.diff(None)]
-
-
-        print(changes)
-
         for w in self.repo.untracked_files:
             try:
                 index.add([w])
@@ -65,26 +70,22 @@ class Github_wrap:
             except PermissionError:
                 if terminal:
                     terminal.print("\tpermission denied for the file "+w)
-                print("permission denied for the file "+w)
         for change in changes:
             try:
                 index.add([change])
                 index.commit("changed file {}".format(change))
                 if terminal:
-                    terminal.print("\tadded file {}".format(change))
-                print("added file {}".format(change))
+                    terminal.print("added file {}".format(change))
 
             except FileNotFoundError:
                 index.remove([change])
                 index.commit("removed file  {}".format(change))
                 if terminal:
                     terminal.print("\tremoved file {}".format(change))
-                print("removed file {}".format(change))
             except PermissionError:
                 print("No permission")
         self.push()
-
-
+    @async
     def push(self):
         try:
             self.repo.git.push()

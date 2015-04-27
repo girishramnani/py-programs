@@ -10,13 +10,14 @@ import os
 from tkinter import *
 import tkinter.ttk as ttk
 import Github_api
-
+from Tkinter_work.github_syncronizer import emu
 
 class UI:
     def __init__(self, master):
         self.github = Github_api.Github_wrap(master)
         self.master = master
         self.init_UI()
+        self.terminalHandler = emu.TerminalHandler(master)
 
 
     def init_UI(self):
@@ -53,8 +54,9 @@ class UI:
 
 
     def start_syncronysing(self):
-        self.github.commit(ctime)
-        print("sync at "+ctime())
+        terminal =self.terminalHandler.new_window(self.directory)
+        self.github.incremental_commit(terminal)
+        terminal.print("sync at "+ctime())
         self.github.push()
         self.master.after(int(self.combobox.get())*60*1000,self.start_syncronysing)
 

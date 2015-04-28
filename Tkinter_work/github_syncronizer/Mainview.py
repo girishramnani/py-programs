@@ -10,7 +10,7 @@ import os
 from tkinter import *
 import tkinter.ttk as ttk
 import Github_api
-from Tkinter_work.github_syncronizer import emu
+import emu
 
 class UI:
     def __init__(self, master):

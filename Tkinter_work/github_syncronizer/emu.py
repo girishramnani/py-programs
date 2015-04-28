@@ -33,7 +33,7 @@ class scrollTxtArea:
 
     def textPad(self,frame):
         textPad=Frame(frame)
-        self.text=Text(textPad,height=20,width=80)
+        self.text=Text(textPad,height=20,width=120)
         # add a vertical scroll bar to the text area
         scroll=Scrollbar(textPad)
         self.text.configure(yscrollcommand=scroll.set)

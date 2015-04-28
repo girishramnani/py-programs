@@ -8,7 +8,6 @@ __author__ = 'Girish'
 
 def async(func):
     def work(arg):
-        print("async push")
         th =Thread(target=lambda :func(arg))
         th.setDaemon(True)
         th.start()
@@ -83,6 +82,7 @@ class Github_wrap:
             except PermissionError:
                 print("No permission")
         self.push()
+
     @async
     def push(self):
         try:

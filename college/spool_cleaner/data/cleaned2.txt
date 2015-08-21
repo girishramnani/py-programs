@@ -1,0 +1,419 @@
+ed
+Wrote file afiedt.buf
+
+  1* SELECT DATEDIFF(day,Date_of_birth,joining_date) AS DiffDate from employee;
+SQL> ed
+Wrote file afiedt.buf
+
+  1* SELECT DATEDIFF(day,Date_of_birth,joining_date) AS DiffDate from employee
+SQL> ed
+Wrote file afiedt.buf
+
+  1* SELECT months_between(day,Date_of_birth,joining_date) AS DiffDate from employee
+SQL> ed
+Wrote file afiedt.buf
+
+  1* SELECT months_between(Date_of_birth,joining_date) AS DiffDate from employee
+SQL> /
+
+ DIFFDATE                                                                                           
+---------                                                                                           
+959.16129                                                                                           
+959.16129                                                                                           
+959.16129                                                                                           
+-52.54839                                                                                           
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* SELECT div(months_between(joining_date,date_of_birth),12) AS DiffDate from employee
+SQL> ed
+Wrote file afiedt.buf
+
+  1* SELECT months_between(joining_date,date_of_birth)/12 AS DiffDate from employee
+SQL> /
+
+ DIFFDATE                                                                                           
+---------                                                                                           
+-79.93011                                                                                           
+-79.93011                                                                                           
+-79.93011                                                                                           
+4.3790323                                                                                           
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* SELECT round(months_between(joining_date,date_of_birth)/12) AS DiffDate from employee
+SQL> /
+
+ DIFFDATE                                                                                           
+---------                                                                                           
+      -80                                                                                           
+      -80                                                                                           
+      -80                                                                                           
+        4                                                                                           
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select to_char(joining_date , 'day') from employee
+SQL> /
+
+TO_CHAR(J                                                                                           
+---------                                                                                           
+tuesday                                                                                             
+tuesday                                                                                             
+tuesday                                                                                             
+monday                                                                                              
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select add_months(joining_date,24) from employee
+SQL> /
+
+ADD_MONTH                                                                                           
+---------                                                                                           
+10-FEB-17                                                                                           
+10-FEB-17                                                                                           
+10-FEB-17                                                                                           
+01-JUN-17                                                                                           
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select next_day(add_months(joining_date,24),'friday') from employee
+SQL> /
+
+NEXT_DAY(                                                                                           
+---------                                                                                           
+17-FEB-17                                                                                           
+17-FEB-17                                                                                           
+17-FEB-17                                                                                           
+02-JUN-17                                                                                           
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select now from names
+SQL> select current_date from names;
+
+no rows selected
+
+SQL> select current_date from dual;
+
+CURRENT_D                                                                                           
+---------                                                                                           
+21-AUG-15                                                                                           
+
+SQL> select months_between(current_date,joining_date) from employee;
+
+MONTHS_BETWEEN(CURRENT_DATE,JOINING_DATE)                                                           
+-----------------------------------------                                                           
+                                6.3606493                                                           
+                                6.3606493                                                           
+                                6.3606493                                                           
+                                2.6509718                                                           
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select months_between(current_date,joining_date)/12 as 'Years', months_between(current_date,joining_date)%12 as 'months' from employee
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select months_between(current_date,joining_date)/12, months_between(current_date,joining_date)%12 from employee
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select months_between(current_date,joining_date)/12, months_between(current_date,joining_date) % 12 from employee
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select months_between(current_date,joining_date)/12, mod(round(months_between(current_date,joining_date)),12) from employee
+SQL> /
+
+MONTHS_BETWEEN(CURRENT_DATE,JOINING_DATE)/12                                                        
+--------------------------------------------                                                        
+MOD(ROUND(MONTHS_BETWEEN(CURRENT_DATE,JOINING_DATE)),12)                                            
+--------------------------------------------------------                                            
+                                   .53005781                                                        
+                                                       6                                            
+                                                                                                    
+                                   .53005781                                                        
+                                                       6                                            
+                                                                                                    
+                                   .53005781                                                        
+                                                       6                                            
+                                                                                                    
+                                   .22091802                                                        
+                                                       3                                            
+                                                                                                    
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select months_between(round(current_date,joining_date))/12, mod(round(months_between(current_date,joining_date)),12) from employee
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select round(months_between(current_date,joining_date))/12, mod(round(months_between(current_date,joining_date)),12) from employee
+SQL> /
+
+ROUND(MONTHS_BETWEEN(CURRENT_DATE,JOINING_DATE))/12                                                 
+---------------------------------------------------                                                 
+MOD(ROUND(MONTHS_BETWEEN(CURRENT_DATE,JOINING_DATE)),12)                                            
+--------------------------------------------------------                                            
+                                                 .5                                                 
+                                                       6                                            
+                                                                                                    
+                                                 .5                                                 
+                                                       6                                            
+                                                                                                    
+                                                 .5                                                 
+                                                       6                                            
+                                                                                                    
+                                                .25                                                 
+                                                       3                                            
+                                                                                                    
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select floor(round(months_between(current_date,joining_date))/12), mod(round(months_between(current_date,joining_date)),12) from employee
+SQL> /
+
+FLOOR(ROUND(MONTHS_BETWEEN(CURRENT_DATE,JOINING_DATE))/12)                                          
+----------------------------------------------------------                                          
+MOD(ROUND(MONTHS_BETWEEN(CURRENT_DATE,JOINING_DATE)),12)                                            
+--------------------------------------------------------                                            
+                                                         0                                          
+                                                       6                                            
+                                                                                                    
+                                                         0                                          
+                                                       6                                            
+                                                                                                    
+                                                         0                                          
+                                                       6                                            
+                                                                                                    
+                                                         0                                          
+                                                       3                                            
+                                                                                                    
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select to_char(joining_date,'DD') from employee
+SQL> /
+
+TO                                                                                                  
+--                                                                                                  
+10                                                                                                  
+10                                                                                                  
+10                                                                                                  
+01                                                                                                  
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select to_char(joining_date,'DD') as gi from employee
+SQL> /
+
+GI                                                                                                  
+--                                                                                                  
+10                                                                                                  
+10                                                                                                  
+10                                                                                                  
+01                                                                                                  
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select to_char(joining_date,'DD') as gi from employee where gi>15;
+SQL> e/
+SP2-0042: unknown command "e/" - rest of line ignored.
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select to_char(joining_date,'DD') as gi from employee where gi>15
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select to_char(joining_date,'DD') as gi from employee where to_char(joinig_date,'DD')>15
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select to_char(joining_date,'DD') as gi from employee where to_char(joining_date,'DD')>15
+SQL> /
+
+no rows selected
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select to_char(joining_date,'DD') as gi from employee where to_char(joining_date,'DD')<15
+SQL> /
+
+GI                                                                                                  
+--                                                                                                  
+10                                                                                                  
+10                                                                                                  
+10                                                                                                  
+01                                                                                                  
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select last_day(joining_date,'friday') as gi from employee where to_char(joining_date,'DD')<15
+SQL> ?
+
+ HELP
+ ----
+
+ Accesses this command line help system. Enter HELP INDEX or ? INDEX
+ for a list of topics. In iSQL*Plus, click the Help button to display
+ iSQL*Plus online help.
+ You can view SQL*Plus resources at http://otn.oracle.com/tech/sql_plus/
+ and the Oracle Database Library at http://otn.oracle.com/documentation/
+
+ HELP|? [topic]
+
+
+SQL> help last_day
+SP2-0172: No HELP available.
+SQL> help last*
+SP2-0172: No HELP available.
+SQL> help index
+
+Enter Help [topic] for help.
+
+ @             COPY         PAUSE                    SHUTDOWN
+ @@            DEFINE       PRINT                    SPOOL
+ /             DEL          PROMPT                   SQLPLUS
+ ACCEPT        DESCRIBE     QUIT                     START
+ APPEND        DISCONNECT   RECOVER                  STARTUP
+ ARCHIVE LOG   EDIT         REMARK                   STORE
+ ATTRIBUTE     EXECUTE      REPFOOTER                TIMING
+ BREAK         EXIT         REPHEADER                TTITLE
+ BTITLE        GET          RESERVED WORDS (SQL)     UNDEFINE
+ CHANGE        HELP         RESERVED WORDS (PL/SQL)  VARIABLE
+ CLEAR         HOST         RUN                      WHENEVER OSERROR
+ COLUMN        INPUT        SAVE                     WHENEVER SQLERROR
+ COMPUTE       LIST         SET
+ CONNECT       PASSWORD     SHOW
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select last_day(joining_date,'friday') as gi from employee where to_char(joining_date,'DD')<15
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select next_day(last_day(joining_date),'friday') as gi from employee where to_char(joining_date,'DD')<15
+SQL> /
+
+GI                                                                                                  
+---------                                                                                           
+06-MAR-15                                                                                           
+06-MAR-15                                                                                           
+06-MAR-15                                                                                           
+03-JUL-15                                                                                           
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select add_days(next_day(last_day(joining_date),'friday'),-5) as gi from employee where to_char(joining_date,'DD')<15
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select add_day(next_day(last_day(joining_date),'friday'),-5) as gi from employee where to_char(joining_date,'DD')<15
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select dateadd(day,-1,next_day(last_day(joining_date),'friday')) as gi from employee where to_char(joining_date,'DD')<15
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select next_day(last_day(joining_date),'friday')-7 as gi from employee where to_char(joining_date,'DD')<15
+SQL> /
+
+GI                                                                                                  
+---------                                                                                           
+27-FEB-15                                                                                           
+27-FEB-15                                                                                           
+27-FEB-15                                                                                           
+26-JUN-15                                                                                           
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select next_day(last_day(joining_date),'friday')-7 as gi from employee where to_char(joining_date,'DD')<15 union select next_day(add_months(last_day(joining_date),1),'friday')-7 as gi from employee where to_char(joining_date,'DD')>15
+SQL> /
+
+GI                                                                                                  
+---------                                                                                           
+27-FEB-15                                                                                           
+26-JUN-15                                                                                           
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select next_day(last_day(joining_date),'friday')-7 as gi from employee where to_char(joining_date,'DD')<15 union select next_day(add_months(last_day(joining_date),1),'friday')-7 as gi from employee where to_char(joining_date,'DD')>15
+SQL> insert into employee values (5,'gi','joe',to_date('20-jan-15'),to_date('20-mar-2015'),54500)
+  2  ;
+
+1 row created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select next_day(add_months(last_day(joining_date),1),'friday')-7 as gi from employee where to_char(joining_date,'DD')>15
+  2  /
+
+GI                                                                                                  
+---------                                                                                           
+24-APR-15                                                                                           
+
+SQL> select joining_date from employee where first_name='gi';
+
+JOINING_D                                                                                           
+---------                                                                                           
+20-MAR-15                                                                                           
+
+SQL> select next_day(add_months(last_day(joining_date),1),'friday')-7 as gi from employee where to_char(joining_date,'DD')>15
+  2  ;
+
+GI                                                                                                  
+---------                                                                                           
+24-APR-15                                                                                           
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select to_char(next_day(add_months(last_day(joining_date),1),'friday')-7,'day') as gi from employee where to_char(joining_date,'DD')>15
+  2  ;
+
+GI                                                                                                  
+---------                                                                                           
+friday                                                                                              
+
+SQL> select next_day(last_day(joining_date),'friday')-7 as gi from employee where to_char(joining_date,'DD')<15 union select next_day(add_months(last_day(joining_date),1),'friday')-7 as gi from employee where to_char(joining_date,'DD')>15
+  2  ;
+
+GI                                                                                                  
+---------                                                                                           
+27-FEB-15                                                                                           
+24-APR-15                                                                                           
+26-JUN-15                                                                                           
+
+SQL> select next_day(last_day(joining_date),'friday')-7 as gi from employee where to_char(joining_date,'DD')<15;
+
+GI                                                                                                  
+---------                                                                                           
+27-FEB-15                                                                                           
+27-FEB-15                                                                                           
+27-FEB-15                                                                                           
+26-JUN-15                                                                                           
+
+SQL> 

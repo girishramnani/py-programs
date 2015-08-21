@@ -21,7 +21,7 @@ class Terminal:
 
     def print(self,message):
         self.scrollTxtArea.text.insert(END,message+"\n")
-
+        self.scrollTxtArea.text.yview(END)
 
 
 class scrollTxtArea:
@@ -35,11 +35,11 @@ class scrollTxtArea:
         textPad=Frame(frame)
         self.text=Text(textPad,height=20,width=120)
         # add a vertical scroll bar to the text area
-        scroll=Scrollbar(textPad)
-        self.text.configure(yscrollcommand=scroll.set)
+        self.scroll=Scrollbar(textPad)
+        self.text.configure(yscrollcommand=self.scroll.set)
         #pack everything
         self.text.pack(side=LEFT)
-        scroll.pack(side=RIGHT,fill=Y)
+        self.scroll.pack(side=RIGHT,fill=Y)
         textPad.pack(side=TOP)
         return
 

@@ -72,7 +72,7 @@ class Github_wrap:
                 index.add([change])
                 index.commit("changed file {}".format(change))
                 if terminal:
-                    terminal.print("added file {}".format(change))
+                    terminal.print("changed file {}".format(change))
 
             except FileNotFoundError:
                 index.remove([change])

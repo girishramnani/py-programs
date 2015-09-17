@@ -57,8 +57,7 @@ var demo = (function(window, undefined) {
     _mapPolygons(pattern);
 
     _bindCards();
-  };
-
+  }
   /**
    * Store path elements, map coordinates and sizes.
    * @param {Element} pattern The SVG Element generated with Trianglify.
@@ -92,8 +91,7 @@ var demo = (function(window, undefined) {
 
     // All polygons are hidden now, display the pattern container.
     $(SELECTORS.pattern).removeClass(CLASSES.patternHidden);
-  };
-
+  }
   /**
    * Bind Card elements.
    * @private
@@ -116,8 +114,7 @@ var demo = (function(window, undefined) {
       $(cardImage).on('click', _playSequence.bind(this, true, i));
       $(cardClose).on('click', _playSequence.bind(this, false, i));
     });
-  };
-
+  }
   /**
    * Create a sequence for the open or close animation and play.
    * @param {boolean} isOpenClick Flag to detect when it's a click to open.
@@ -155,8 +152,7 @@ var demo = (function(window, undefined) {
     }
 
     sequence.play();
-  };
-
+  }
   /**
    * Show/Hide all other cards.
    * @param {number} id The id of the clcked card to be avoided.
@@ -184,8 +180,7 @@ var demo = (function(window, undefined) {
     }
 
     return TL;
-  };
-
+  }
   /**
    * Callback to be executed on Tween update, whatever a polygon
    * falls into a circular area defined by the card width the path's
@@ -229,8 +224,7 @@ var demo = (function(window, undefined) {
     var isInside = Math.pow(xp - xc, 2) + Math.pow(yp - yc, 2) <= d;
 
     return isInside;
-  };
-
+  }
   // Expose methods.
   return {
     init: init

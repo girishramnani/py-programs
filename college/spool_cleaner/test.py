@@ -1,7 +1,7 @@
 __author__ = 'Girish'
 import unittest
 from unittest import TestCase
-from college.spool_cleaner.app import SpoolCleaner
+from app import SpoolCleaner
 from filecmp import cmp
 import os
 import glob
@@ -16,18 +16,21 @@ class SpoolTest(TestCase):
     def test_compare_files(self):
         self.assertEqual(cmp2("data/compare1","data/compare2"),True)
 
+
+
     def test_spool1(self):
         IND =1
-        spool_cleaner = SpoolCleaner("data/input{}.txt".format(IND))
-        spool_cleaner.clean("data/output{}.txt".format(IND))
-        self.assertEqual(cmp2("data/output{}.txt".format(IND),"data/cleaned{}.txt".format(IND)),True)
+        for IND in range(1,3):
+            spool_cleaner = SpoolCleaner("data/input{}.txt".format(IND))
+            spool_cleaner.clean("data/output{}.txt".format(IND))
+            self.assertEqual(cmp2("data/output{}.txt".format(IND),"data/cleaned{}.txt".format(IND)),True)
 
-    def test_spool2(self):
-        IND =2
-        spool_cleaner = SpoolCleaner("data/input{}.txt".format(IND))
-        spool_cleaner.clean("data/output{}.txt".format(IND))
-        self.assertEqual(cmp2("data/output{}.txt".format(IND),"data/cleaned{}.txt".format(IND)),True)
-
+    # def test_spool2(self):
+    #     IND =2
+    #     spool_cleaner = SpoolCleaner("data/input{}.txt".format(IND))
+    #     spool_cleaner.clean("data/output{}.txt".format(IND))
+    #     self.assertEqual(cmp2("data/output{}.txt".format(IND),"data/cleaned{}.txt".format(IND)),True)
+    #
 
 
     def tearDown(self):

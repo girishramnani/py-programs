@@ -33,3 +33,5 @@ class SpoolCleaner(object):
                 output_stream.writelines(buffer)
 
 
+def parse_args():
+    

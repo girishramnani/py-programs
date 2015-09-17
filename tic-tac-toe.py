@@ -23,7 +23,7 @@ def possible_moves(board):
     moves = []
     for i,x in enumerate(board):
         for j, y in enumerate(x):
-            if(y ==None):
+            if y ==None:
                 moves.append((i,j))
     return moves
 
@@ -79,7 +79,7 @@ def check():
                 if y ==None:
                     return False
         return True
-    if (draw(board)):
+    if draw(board):
         return True,None
     for x in range(len(board)):
         if board[x][0]==board[x][1]==board[x][2] != None:

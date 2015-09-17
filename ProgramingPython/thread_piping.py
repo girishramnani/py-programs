@@ -8,7 +8,7 @@ def child(pipin):
         zz+=1
         time.sleep(0.5)
         os.write(pipin,str(zz).encode())
-        zz=zz%10
+        zz %= 10
 def parent(pipeout):
     while True:
         read = os.read(pipeout,32)

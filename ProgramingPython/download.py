@@ -31,10 +31,10 @@ def _main(self):
 links = self._getBookLinks()
 for url in links:
 # check if we visited this url yet
-if(url in self._visitedUrls):
+if url in self._visitedUrls:
 continue
 source = self._getSource(url)
-if(not source):
+if not source:
 continue
 # extract the download link for the file and it's title
 downloadLink = self._getDlLink(source)
@@ -69,7 +69,7 @@ return
 
 def _cfgLoaded(self, valueName):
 """ Checks if all values have been loaded from the config file, returns bool """
-if(not self._savePath):
+if not self._savePath:
 return False
 elif(not self._visitedUrlsPath):
 return False
@@ -82,7 +82,7 @@ return True
 
 def _loadConfig(self):
 """ Loads the config file, if it doesn't exist it gets created """
-if(os.path.isfile("grab.conf") is False):
+if os.path.isfile("grab.conf") is False:
 self._createConfig()
 try:
 # read the config and load its values
@@ -93,7 +93,7 @@ self._visitedUrlsPath = c.get("Paths", "visitedUrls")
 self._userAgent = c.get("Connection", "userAgent")
 tmpsleep = c.get("Connection", "sleep")
 try: # convert the sleep time to int
-if(int(tmpsleep) < 30 or int(tmpsleep) > 1337):
+if int(tmpsleep) < 30 or int(tmpsleep) > 1337:
 self._sleep = 60
 except ValueError:
 self._sleep = 60
@@ -102,7 +102,7 @@ self._sleep = int(tmpsleep)
 
 
 # add a trailing slash after the save path if required
-if(self._savePath.endswith("/") is False):
+if self._savePath.endswith("/") is False:
 self._savePath += '/'
 
 try:
@@ -113,7 +113,7 @@ except IOError:
 self._visitedUrls = []
 
 # make sure all values of the config were loaded
-if(self._cfgLoaded is False):
+if self._cfgLoaded is False:
 raise ValueError
 except(ConfigParser.NoOptionError, ValueError):
 print("Error: config file is missing crucial values!")
@@ -128,8 +128,8 @@ source = ""
 u = urllib2.Request(url, None, {"User-Agent": self._userAgent})
 u = urllib2.urlopen(u)
 # filter out unsuccessful requests
-if(u.code != 200):
-raise(urllib2.HTTPError)
+if u.code != 200:
+raise urllib2.HTTPError
 except(urllib2.URLError, urllib2.HTTPError):
 print("Failed to establish connection to "+url)
 else:
@@ -142,11 +142,11 @@ return source
 
 def _getDlLink(self, source):
 """ Extracts the direct download link of the book in the passed source """
-if(not source or source.isspace()):
+if not source or source.isspace():
 raise ValueError("Passed source is either empty or None! (_extractDownloadLink)")
 # filter out the link
 link = re.search("'http://filepi\.com/.+?'", source)
-if(not link):
+if not link:
 raise ValueError("Couldn't find download link! (_extractDownloadLink)")
 # clean it up and return the link
 link = link.group().replace("'", "")
@@ -166,17 +166,17 @@ return links
 
 def _addToVUrls(self, link):
 """ Adds the passed link to the list of visited urls """
-if(link not in self._visitedUrls):
+if link not in self._visitedUrls:
 self._visitedUrls.append(link)
 return
 
 
 def _getBookTitle(self, source):
 """ Filters out the book title of the passed source """
-if(not source):
+if not source:
 raise ValueError("Passed source was empty or none! (_getBookTitle)")
 title = re.search("<h1\sitemprop=\"name\">.+?</h1>", source)
-if(not title):
+if not title:
 raise ValueError("Failed to obtain the book title!")
 title = title.group().replace("<h1 itemprop=\"name\">", "").replace("</h1>", "")
 return title
@@ -185,14 +185,14 @@ return title
 def _downloadFile(self, url, refUrl):
 """ Downloads the file at the given url, the passed refUrl is the referer address
 which is needed to make use of the direct download feature of filepi. """
-if(not url):
+if not url:
 raise ValueError("Can't download file, url is empty or None! (_downloadFile(url))")
 elif(not refUrl):
 raise ValueError("Can't download file without the refering url parameter! (_downloadFile(.., refUrl))")
 try:
 u = urllib2.Request(url, None, {"User-Agent":self._userAgent, "Referer":refUrl, "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"})
 u = urllib2.urlopen(u)
-if(u.code != 200):
+if u.code != 200:
 u.close()
 raise urllib2.HTTPError("Status code wasn't positive! (_downloadFile)")
 data = u.read()
@@ -207,7 +207,7 @@ return
 def _saveFile(self, fname, data):
 """ Saves the passed file under the passed filename """
 # ensure that the directory exist before trying to write the downloaded file
-if(os.path.isdir(self._savePath) is False):
+if os.path.isdir(self._savePath) is False:
 os.makedirs(self._savePath)
 # write the passed data to file
 with open(self._savePath + fname+".pdf", "w") as f:
@@ -219,7 +219,7 @@ return
 def __del__(self):
 """ save the visited urls list to file """
 # if a list of visited urls already exists we append to it
-if(os.path.isfile(self._visitedUrlsPath) is True):
+if os.path.isfile(self._visitedUrlsPath) is True:
 # read the list
 with open(self._visitedUrlsPath, "r") as f:
 storedUrls = [u.strip() for u in f.readlines()]

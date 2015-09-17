@@ -53,7 +53,7 @@ def logic_puzzle():
                                                     if designer != droid :
                                                         if knuth-manager==1 :
                                                             if set([laptop,wilkes]) == set([1,writer]) :
-                                                                if (tablet == 4 or iphone ==2) :
+                                                                if tablet == 4 or iphone ==2:
                                                                     print(hamming,knuth,minsky,simon,wilkes)
 
 

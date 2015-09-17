@@ -12,24 +12,24 @@ class gi:
 		self.message = message
 class StreamToLogger(object):
 
-    def __init__(self, logger, log_level, std, handler):
-        self.handler = handler
-        self.logger = logger
-        self.log_level = log_level
-        self.linebuf = ''
-        self.std = std
-        self.gi = gi("")
+	def __init__(self, logger, log_level, std, handler):
+		self.handler = handler
+		self.logger = logger
+		self.log_level = log_level
+		self.linebuf = ''
+		self.std = std
+		self.gi = gi("")
 
-    def write(self, buf):
-        for line in buf.rstrip().splitlines():
-        	self.gi.setMessage(line)
+	def write(self, buf):
+		for line in buf.rstrip().splitlines():
+			self.gi.setMessage(line)
 			self.logger.log(self.log_level, line.rstrip())
 			self.std.write(line+"\n")
 			hand.flush()
 			self.std.flush()
 
-    def flush(self):
-    		self.std.flush()
+	def flush(self):
+			self.std.flush()
 
 
 logging.basicConfig(

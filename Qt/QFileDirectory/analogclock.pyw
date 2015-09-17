@@ -104,7 +104,7 @@ class PyAnalogClock(QtGui.QWidget):
         painter.setBrush(QtGui.QBrush(self.hourColor))
 
         painter.save()
-        painter.rotate(30.0 * ((time.hour() + time.minute() / 60.0)))
+        painter.rotate(30.0 * (time.hour() + time.minute() / 60.0))
         painter.drawConvexPolygon(self.hourHand)
         painter.restore()
 

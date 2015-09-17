@@ -9,7 +9,7 @@ def roll(state,d):
     if d==1:
         return State(0 if state.p else 1,state.you,state.me+1,0)
     else:
-        return (state.p,state.me,state.you,state.pending+d)
+        return state.p,state.me,state.you,state.pending+d
 
 import random
 
@@ -21,7 +21,7 @@ def clueless(state):
 def hold_at(x):
     def strategy(state):
         (p,me,you,pending) =state
-        return 'hold' if (pendo)
+        return 'hold' if pendo
 
 
 

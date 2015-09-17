@@ -78,23 +78,23 @@ def two_pair(ranks):
 def _hand_rank(hand):
     ranks = card_ranks(hand)
     if straight(ranks) and flush(hand):
-        return (8, max(ranks))
+        return 8, max(ranks)
     elif kind(4, ranks):
-        return (7, kind(4, ranks), kind(1, ranks))
+        return 7, kind(4, ranks), kind(1, ranks)
     elif kind(3, ranks) and kind(2, ranks):
-        return (6, kind(3, ranks), kind(2, ranks))
+        return 6, kind(3, ranks), kind(2, ranks)
     elif straight(ranks):
-        return (4, max(ranks))
+        return 4, max(ranks)
     elif flush(hand):
-        return (5, sorted(ranks, reverse=True))
+        return 5, sorted(ranks, reverse=True)
     elif kind(3, ranks):
-        return (3, kind(3, ranks), ranks)
+        return 3, kind(3, ranks), ranks
     elif two_pair(ranks):
-        return (2, two_pair(ranks), ranks)
+        return 2, two_pair(ranks), ranks
     elif kind(2, ranks):
-        return (1, kind(2, ranks), sorted(ranks, reverse=True))
+        return 1, kind(2, ranks), sorted(ranks, reverse=True)
     else:
-        return (0, sorted(ranks, reverse=True))
+        return 0, sorted(ranks, reverse=True)
 
 
 reporduce()

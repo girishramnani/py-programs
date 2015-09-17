@@ -30,7 +30,7 @@ def start_scrapping():
             response = urllib.request.urlopen('http://it-ebooks.info/book/{}/'.format(number))
             html_url = response.geturl()
             if r"/404/" in html_url:
-                if tried_next == True:
+                if tried_next:
                     work['last']=number
                     print("Done with download")
                     break

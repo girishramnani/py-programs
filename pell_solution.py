@@ -18,8 +18,7 @@ def pell_coefficient(num):
     d1=0
     a0=int(sq)
     a1=0
-    li=[]
-    li.append(sq)
+    li= [sq]
     while a0!=2*sq:
 
         m1=(d0*a0)-m0
@@ -50,8 +49,7 @@ def fractionalcoll(num):
     d1=0
     a0=int(sq)
     a1=0
-    li=[]
-    li.append(sq)
+    li= [sq]
     while a0!=2*sq:
         m1=(d0*a0)-m0
         d1 = int((num - (m1**2) )/ d0)

@@ -1,38 +1,23 @@
-__author__ = 'Girish'
+import requests
+from queue import Queue
+import bs4
+import shelve
+from scrapper import find_next,get_scrap_data
+
+data = shelve.open("remember",writeback=True)
 
 
-def find_next(past_comment,past_title,past_author):
+try:
+    starting = data["last"]
+except:
+    starting =1
+html_pages = []
 
-    comment = past_comment.find_next("p","mb-text-full")
-    title = past_title.find_next("a","mb-message-title")
-    author = past_author.find_next("span","mb-by")
-
-    return comment,title,author
-
-
-def get_scrap_data(htmlpages):
-
-    for page in htmlpages:
-        output = bs4.BeautifulSoup(page,"lxml")
-
-        title = output.find("a","mb-message-title")
-        author = output.find("span","mb-by")
-        comment = output.find("p","mb-text-full")
+for i in range(starting):
+    response = requests.get("http://finance.yahoo.com/mb/forumview/?&v=m&bn=072b030b-a126-32f4-b237-4f342be9ed44&page={}".format(i))
+    html_pages.append(response.content.decode())
 
 
-        while any([comment,title,author]):
+get_scrap_data(html_pages)
 
-
-            comment_data = comment.text
-            title_data = title.text
-            author_data = author.a.strong.text
-
-
-            print(comment_data)
-            print(title_data)
-            print(author_data)
-            print()
-
-
-            comment,title,author = find_next(comment,author,title)
 

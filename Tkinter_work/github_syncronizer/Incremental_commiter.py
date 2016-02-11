@@ -20,9 +20,9 @@ class Ui2(Mainview.UI):
         self.button2 = Button(self.master, text="start commiting", command=self.github.incremental_commit)
         self.button2.config(state="disabled")
 
-        self.label.grid(row=0, column=0, pady=(5, 5), padx=(10))
-        self.entry.grid(row=0, column=1, pady=(5, 5), padx=(10))
-        self.button.grid(row=0, column=2, pady=(5, 5), padx=(2))
+        self.label.grid(row=0, column=0, pady=(5, 5), padx=10)
+        self.entry.grid(row=0, column=1, pady=(5, 5), padx=10)
+        self.button.grid(row=0, column=2, pady=(5, 5), padx=2)
         self.button2.grid(row=0, column=3, padx=(2, 5))
 
 
